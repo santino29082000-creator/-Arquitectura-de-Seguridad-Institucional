@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario Interactivo · Arquitectura de Seguridad Institucional 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --primary-light: #dbeafe;
+            --accent: #0ea5e9;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --success-border: #10b981;
+            --error: #dc2626;
+            --error-light: #fee2e2;
+            --error-border: #ef4444;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.08);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e7f0 30%, #ecf1f7 60%, #e2e9f3 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 780px;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 35%, #1e3a5f 100%);
+            padding: 20px 28px;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .app-header::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .app-header .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .app-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .app-header .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .app-header h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        .app-header .subtitle {
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.7;
+            letter-spacing: 0.02em;
+        }
+        .app-header .badge {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+            color: #bae6fd;
+        }
+
+        .progress-section {
+            padding: 16px 28px 8px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .progress-info .respondidas {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .progress-bar-track {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #2563eb 0%, #0ea5e9 50%, #6366f1 100%);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+            position: relative;
+        }
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            animation: shimmer 1.8s infinite;
+        }
+        @keyframes shimmer {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .main-content {
+            padding: 24px 28px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .question-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            width: fit-content;
+            letter-spacing: 0.02em;
+        }
+        .question-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.6);
+                opacity: 0.5;
+            }
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            padding: 2px 0;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            list-style: none;
+        }
+        .option-item {
+            display: flex;
+            align-items: stretch;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: #fafbfc;
+            transition: all var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+        .option-item:hover:not(.disabled) {
+            border-color: #93c5fd;
+            background: #eff6ff;
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+        .option-item:active:not(.disabled) {
+            transform: scale(0.985);
+            transition: transform 0.1s;
+        }
+        .option-item.disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+        .option-item.correct {
+            border-color: var(--success-border) !important;
+            background: var(--success-light) !important;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08);
+        }
+        .option-item.incorrect {
+            border-color: var(--error-border) !important;
+            background: var(--error-light) !important;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+        }
+        .option-item.reveal-correct {
+            border-color: var(--success-border) !important;
+            background: #f0fdf4 !important;
+        }
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            min-width: 48px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            background: #f1f5f9;
+            border-right: 2px solid var(--border);
+            transition: all var(--transition);
+            letter-spacing: 0.03em;
+        }
+        .option-item.correct .option-letter {
+            background: #059669;
+            color: #fff;
+            border-right-color: #059669;
+        }
+        .option-item.incorrect .option-letter {
+            background: #dc2626;
+            color: #fff;
+            border-right-color: #dc2626;
+        }
+        .option-item.reveal-correct .option-letter {
+            background: #059669;
+            color: #fff;
+            border-right-color: #059669;
+        }
+        .option-text {
+            padding: 13px 16px;
+            flex: 1;
+            font-size: 0.93rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+        }
+        .option-item.correct .option-text,
+        .option-item.incorrect .option-text {
+            font-weight: 600;
+        }
+        .option-icon {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            min-width: 40px;
+            font-size: 1.3rem;
+        }
+        .option-item.correct .option-icon,
+        .option-item.incorrect .option-icon,
+        .option-item.reveal-correct .option-icon {
+            display: flex;
+        }
+        .option-item.correct .option-icon::after {
+            content: '✓';
+            color: #059669;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .option-item.incorrect .option-icon::after {
+            content: '✗';
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .option-item.reveal-correct .option-icon::after {
+            content: '✓';
+            color: #059669;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .justification-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 16px 18px;
+            margin-top: 2px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            animation: slideIn 0.35s ease-out;
+            display: none;
+        }
+        .justification-box.visible {
+            display: block;
+        }
+        .justification-box .just-label {
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.73rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .justification-box.correct-just {
+            border-left-color: var(--success-border);
+            background: #f0fdf4;
+        }
+        .justification-box.correct-just .just-label {
+            color: #059669;
+        }
+        .justification-box.incorrect-just {
+            border-left-color: var(--error-border);
+            background: #fef2f2;
+        }
+        .justification-box.incorrect-just .just-label {
+            color: #dc2626;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .nav-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0 0;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            letter-spacing: 0.01em;
+            font-family: var(--font);
+            white-space: nowrap;
+        }
+        .nav-btn:active {
+            transform: scale(0.96);
+            transition: transform 0.1s;
+        }
+        .btn-prev {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1.5px solid #e2e8f0;
+        }
+        .btn-prev:hover {
+            background: #e2e8f0;
+            color: var(--text);
+            border-color: #cbd5e1;
+        }
+        .btn-prev:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .btn-next {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
+        }
+        .btn-next:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.4);
+            transform: translateY(-1px);
+        }
+        .btn-finish {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+            font-weight: 700;
+        }
+        .btn-finish:hover {
+            box-shadow: 0 4px 16px rgba(217, 119, 6, 0.45);
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+        .btn-restart {
+            background: #fff;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            font-weight: 700;
+        }
+        .btn-restart:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .results-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+            gap: 18px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        .results-screen.active {
+            display: flex;
+        }
+        .results-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-weight: 800;
+            position: relative;
+        }
+        .results-circle.excellent {
+            background: conic-gradient(#10b981 0deg, #10b981 var(--pct), #e2e8f0 var(--pct));
+        }
+        .results-circle.good {
+            background: conic-gradient(#6366f1 0deg, #6366f1 var(--pct), #e2e8f0 var(--pct));
+        }
+        .results-circle.fair {
+            background: conic-gradient(#f59e0b 0deg, #f59e0b var(--pct), #e2e8f0 var(--pct));
+        }
+        .results-circle.poor {
+            background: conic-gradient(#ef4444 0deg, #ef4444 var(--pct), #e2e8f0 var(--pct));
+        }
+        .results-circle .inner-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+        }
+        .results-circle .percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+        }
+        .results-circle .pct-symbol {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .results-summary {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .results-summary strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+        .results-emoji {
+            font-size: 3rem;
+        }
+
+        @media (max-width: 600px) {
+            .app-container {
+                border-radius: var(--radius-lg);
+            }
+            .app-header {
+                padding: 16px 18px;
+            }
+            .app-header h1 {
+                font-size: 0.95rem;
+            }
+            .app-header .badge {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            .main-content {
+                padding: 18px 16px 16px;
+                gap: 14px;
+            }
+            .progress-section {
+                padding: 12px 16px 6px;
+            }
+            .question-text {
+                font-size: 0.95rem;
+            }
+            .option-text {
+                font-size: 0.85rem;
+                padding: 12px 10px;
+            }
+            .option-letter {
+                width: 38px;
+                min-width: 38px;
+                font-size: 0.9rem;
+            }
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.82rem;
+                border-radius: 22px;
+            }
+            .nav-section {
+                gap: 8px;
+            }
+            .results-circle {
+                width: 120px;
+                height: 120px;
+            }
+            .results-circle .inner-circle {
+                width: 94px;
+                height: 94px;
+            }
+            .results-circle .percentage {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="header-top">
+                <div class="logo-area">
+                    <div class="logo-icon">🛡️</div>
+                    <div>
+                        <h1>Arquitectura de Seguridad Institucional</h1>
+                        <span class="subtitle">Estándar 4.0 · Zero Trust · Edge Gateway</span>
+                    </div>
+                </div>
+                <span class="badge">🔒 Nodo Z9 · Gobernanza</span>
+            </div>
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-section" id="progressSection">
+            <div class="progress-info">
+                <span>Progreso de la práctica</span>
+                <span class="respondidas" id="respondidasCount">0 / 20 respondidas</span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Contenido principal (preguntas) -->
+        <div class="main-content" id="mainContent">
+            <div class="question-indicator" id="questionIndicator">
+                <span class="dot"></span> <span id="qIndicatorText">Pregunta 1 de 20</span>
+            </div>
+            <p class="question-text" id="questionText"></p>
+            <ul class="options-list" id="optionsList"></ul>
+            <div class="justification-box" id="justificationBox">
+                <span class="just-label" id="justLabel">Justificación técnica</span>
+                <span id="justText"></span>
+            </div>
+            <div class="nav-section">
+                <button class="nav-btn btn-prev" id="btnPrev" title="Pregunta anterior">← Anterior</button>
+                <button class="nav-btn btn-finish" id="btnFinish" title="Finalizar práctica">🏁 Finalizar</button>
+                <button class="nav-btn btn-next" id="btnNext" title="Siguiente pregunta">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="results-emoji" id="resultsEmoji">🎯</div>
+            <div class="results-circle" id="resultsCircle">
+                <div class="inner-circle">
+                    <span class="percentage" id="resultsPercentage">0</span>
+                    <span class="pct-symbol">%</span>
+                </div>
+            </div>
+            <div class="results-summary" id="resultsSummary"></div>
+            <button class="nav-btn btn-restart" id="btnRestart">🔄 Volver a intentar (nuevo orden)</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ==================== BLOQUEO DE HERRAMIENTAS DE INSPECCIÓN ====================
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+                    e.preventDefault();
+                    return false;
+                }
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            let devToolsOpen = false;
+            const threshold = 160;
+            const checkDevTools = function() {
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                if (widthThreshold || heightThreshold) {
+                    if (!devToolsOpen) {
+                        devToolsOpen = true;
+                        console.clear();
+                        console.log('%c⚠️ Modo práctica: se recomienda no usar herramientas de inspección.',
+                            'color: #f59e0b; font-size:14px;');
+                    }
+                } else {
+                    devToolsOpen = false;
+                }
+            };
+            window.addEventListener('resize', checkDevTools);
+            checkDevTools();
+
+            // ==================== DATOS DEL CUESTIONARIO ====================
+            const questionsData = [{
+                id: 1,
+                text: 'Un usuario con credenciales legítimas de Dirección intenta descargar un volumen masivo de datos a las 3:00 AM desde una zona no habitual. Bajo el paradigma Zero Trust del material, ¿cuál es la respuesta del sistema?',
+                options: [
+                    'Evalúa el comportamiento dinámico del usuario para denegar el acceso.',
+                    'Valida la ubicación geográfica del equipo para autorizar el ingreso.',
+                    'Verifica los permisos estáticos del perfil para permitir la descarga.',
+                    'Compara el horario de conexión habitual para habilitar el servicio.',
+                    'Analiza la dirección IP de origen para confirmar la identidad digital.'
+                ],
+                correctIndex: 0,
+                justification: 'El modelo Zero Trust de 2026 recalcula la confianza basándose en el comportamiento y no en la ubicación o legitimidad previa de la credencial. Las demás opciones se basan en parámetros estáticos o de red tradicional que el estándar busca superar.'
+            }, {
+                id: 2,
+                text: 'Ante una interrupción total del servicio de internet por 48 horas, ¿cómo se garantiza la soberanía operativa en el nodo Z9?',
+                options: [
+                    'Mantiene la capacidad de inferencia local sin depender de la nube.',
+                    'Restringe el flujo de datos críticos hasta recuperar la fibra óptica.',
+                    'Sincroniza los registros forenses con el centro de datos principal.',
+                    'Desactiva los protocolos de respuesta autónoma por falta de mando.',
+                    'Delega la toma de decisiones críticas al supervisor del área física.'
+                ],
+                correctIndex: 0,
+                justification: 'El Edge Gateway en Z9 cuenta con aceleradores IA para ejecutar modelos de seguridad sin que los datos abandonen el edificio. Las otras opciones implican dependencia externa o degradación del servicio, lo cual contradice el principio de soberanía.'
+            }, {
+                id: 3,
+                text: 'En el diseño de trazabilidad biométrica descentralizada, ¿cuál es la función crítica de la Unidad de Procesamiento Neural (NPU) integrada?',
+                options: [
+                    'Procesa las plantillas biométricas in-situ para proteger el RGPD.',
+                    'Transmite las imágenes faciales al servidor central para su cotejo.',
+                    'Almacena las bases de datos de identidad en la VLAN de auditoría.',
+                    'Genera claves de acceso temporales para los usuarios del taller Z6.',
+                    'Coordina la apertura mecánica de las puertas en los nodos críticos.'
+                ],
+                correctIndex: 0,
+                justification: 'El procesamiento en la NPU permite que solo se envíe un log criptográfico a la red, evitando la centralización de datos sensibles. Las opciones B, C, D y E describen arquitecturas centralizadas o funciones ajenas a la NPU según el estándar.'
+            }, {
+                id: 4,
+                text: 'Durante un diagnóstico de seguridad en un pasillo con oscuridad absoluta, ¿por qué se recomienda la implementación de LiDAR sobre el CCTV tradicional?',
+                options: [
+                    'Permite una visión volumétrica perfecta sin procesar datos personales.',
+                    'Captura imágenes térmicas de alta resolución para identificar rostros.',
+                    'Reduce el consumo de ancho de banda mediante compresión de video.',
+                    'Facilita el reconocimiento facial mediante el mapeo de siluetas 3D.',
+                    'Aumenta la capacidad de almacenamiento local en el Gateway de zona.'
+                ],
+                correctIndex: 0,
+                justification: 'El LiDAR mapea siluetas y coordenadas sin capturar píxeles de identidad, funcionando eficazmente en oscuridad. Las opciones B y D sugieren captura de identidad facial, algo que el LiDAR precisamente evita para cumplir con la minimización de datos.'
+            }, {
+                id: 5,
+                text: 'Un dispositivo infectado con malware en el taller CNC (Z6) intenta propagarse hacia la red de Gobernanza (Z9). ¿Qué mecanismo detiene esta acción?',
+                options: [
+                    'Ejecuta una micro-segmentación lógica para aislar la VLAN infectada.',
+                    'Activa una alerta sonora en el tablero de control del Gemelo Digital.',
+                    'Solicita una autenticación multifactorial al operario del taller Z6.',
+                    'Requiere una validación manual por parte del Director de la unidad.',
+                    'Inicia un escaneo profundo de virus en todos los terminales del Z9.'
+                ],
+                correctIndex: 0,
+                justification: 'El estándar 4.0 utiliza redes aisladas por función crítica para evitar que un virus en el taller afecte a dirección. Las demás son respuestas reactivas o manuales que no garantizan el aislamiento estructural.'
+            }, {
+                id: 6,
+                text: '¿Cuál es el valor estratégico de la telemetría ambiental (temperatura, CO₂, humedad) en la Secretaría según la Pedagogía 3?',
+                options: [
+                    'Previene la destrucción silenciosa de documentación legal sensible.',
+                    'Controla el consumo energético de los sistemas de aire comprimido.',
+                    'Monitorea la presencia de personal no autorizado en áreas críticas.',
+                    'Optimiza el rendimiento de los servidores alojados en el nodo Z9.',
+                    'Ajusta la iluminación automática basándose en la ocupación real.'
+                ],
+                correctIndex: 0,
+                justification: 'Fallos térmicos o humedad excesiva pueden destruir años de archivos físicos en Secretaría. Las otras opciones mencionan funciones de eficiencia energética o seguridad física que no son el foco principal de la protección ambiental preventiva descrita.'
+            }, {
+                id: 7,
+                text: 'En la Hoja de Ruta Táctica 2026, ¿cuál es la consecuencia técnica de omitir la Fase 1 (Auditoría y Segmentación)?',
+                options: [
+                    'Genera falsas sensaciones de protección al construir sobre el caos.',
+                    'Impide la instalación física de los sensores LiDAR en los pasillos.',
+                    'Bloquea la actualización de los modelos de IA en el Edge Gateway.',
+                    'Retrasa la implementación de la encriptación Post-Cuántica (PQC).',
+                    'Limita la capacidad de respuesta autónoma del tablero de control.'
+                ],
+                correctIndex: 0,
+                justification: 'El principio rector establece que la seguridad se construye en capas y saltar pasos es contraproducente. Las demás opciones son consecuencias técnicas específicas pero no reflejan el riesgo estructural de diseño mencionado.'
+            }, {
+                id: 8,
+                text: 'El protocolo de aislamiento de emergencia en Z8 se activa en 0.5 segundos. ¿Cuál es el disparador técnico de esta secuencia?',
+                options: [
+                    'Detecta un acceso volumétrico fuera de horario sin validación.',
+                    'Identifica una huella dactilar no registrada en la base de datos.',
+                    'Registra un aumento súbito de la temperatura en el nodo crítico.',
+                    'Recibe una orden directa de bloqueo desde el Dashboard central.',
+                    'Observa una caída en la latencia de la conexión hacia la VLAN 20.'
+                ],
+                correctIndex: 0,
+                justification: 'El protocolo comienza con la detección por LiDAR de un acceso no autorizado en Z8. La biometría (B) o la temperatura (C) no son los disparadores definidos para este protocolo de aislamiento físico-lógico inmediato.'
+            }, {
+                id: 9,
+                text: '¿Cómo transforma el Dashboard Digital Twin el rol del Director institucional?',
+                options: [
+                    'Evoluciona de un administrador reactivo a un estratega proactivo.',
+                    'Facilita la supervisión técnica de las tareas de mantenimiento local.',
+                    'Permite la gestión directa de las nóminas del personal de seguridad.',
+                    'Automatiza la creación de informes de cumplimiento para auditoría.',
+                    'Sustituye la necesidad de personal humano en las áreas de control.'
+                ],
+                correctIndex: 0,
+                justification: 'El Gemelo Digital unifica sistemas para evitar la fatiga de alertas y permitir decisiones estratégicas. Las opciones B, C y D son tareas administrativas menores, y la E es una conclusión errónea sobre la automatización.'
+            }, {
+                id: 10,
+                text: 'En el marco de la encriptación Post-Cuántica (PQC), ¿cuál es su propósito primordial en la arquitectura de 2026?',
+                options: [
+                    'Autentica continuamente cada dispositivo basándose en su conducta.',
+                    'Acelera la velocidad de transmisión de datos en la red del taller.',
+                    'Reduce el tamaño de los paquetes de datos enviados a la Secretaría.',
+                    'Protege las comunicaciones contra futuras capacidades de cómputo.',
+                    'Gestiona los privilegios temporales de los usuarios externos al Z9.'
+                ],
+                correctIndex: 0,
+                justification: 'El fundamento técnico del Zero Trust utiliza PQC para autenticar continuamente cada dispositivo. Aunque la PQC tiene fines criptográficos generales (D), el texto la vincula específicamente a la autenticación continua y el recálculo de confianza.'
+            }, {
+                id: 11,
+                text: '¿Qué característica define al "Log Inmutable" enviado a la VLAN de auditoría tras un escaneo biométrico?',
+                options: [
+                    'Registra un rastro forense criptográfico sin datos de identidad.',
+                    'Almacena una copia de seguridad de la imagen facial del usuario.',
+                    'Contiene el historial completo de accesos de la última semana.',
+                    'Emite una alerta instantánea al dispositivo móvil del Director.',
+                    'Bloquea el acceso físico si se detecta una discrepancia técnica.'
+                ],
+                correctIndex: 0,
+                justification: 'El sistema envía un log criptográfico para proteger la privacidad y cumplir el RGPD, procesando la biometría in-situ. La opción B es incorrecta por política de privacidad, y las demás son funciones de otros módulos.'
+            }, {
+                id: 12,
+                text: 'El Edge Gateway utiliza inspección profunda de paquetes (DPI). ¿Cuál es el objetivo de esta tecnología en la gobernanza Z8-Z9?',
+                options: [
+                    'Inspecciona los flujos de datos locales para detectar anomalías.',
+                    'Incrementa la velocidad de descarga de archivos desde la nube.',
+                    'Formatea los discos duros de los servidores en caso de intrusión.',
+                    'Cifra las comunicaciones entre los sensores MQTT y el tablero.',
+                    'Asigna direcciones IP dinámicas a los dispositivos de la VLAN 20.'
+                ],
+                correctIndex: 0,
+                justification: 'El Gateway realiza una inspección profunda para validar el tráfico entre segmentos de alta prioridad y los talleres. Las demás opciones son funciones de red genéricas o incorrectas según el diagrama de flujo.'
+            }, {
+                id: 13,
+                text: '¿Cuál es el requerimiento para conceder acceso bajo el principio de "Mínimo Privilegio Temporal"?',
+                options: [
+                    'Intercepta la solicitud mediante un Gateway antes de validar.',
+                    'Permite el acceso total una vez verificada la identidad biométrica.',
+                    'Habilita todos los recursos de la red durante la jornada laboral.',
+                    'Otorga permisos permanentes a los usuarios con cargos directivos.',
+                    'Desactiva los firewalls lógicos para facilitar el flujo de trabajo.'
+                ],
+                correctIndex: 0,
+                justification: 'El proceso Zero Trust implica interceptar la solicitud (paso 1) y luego conceder solo el privilegio mínimo necesario y temporal. Las otras opciones (B, C, D) describen el modelo de "confianza implícita" que el estándar 2026 elimina.'
+            }, {
+                id: 14,
+                text: 'En la matriz de evolución, ¿qué diferencia a la respuesta tradicional de la respuesta estándar 4.0?',
+                options: [
+                    'Cambia la detección reactiva por una autonomía en milisegundos.',
+                    'Sustituye las alarmas sonoras por notificaciones en redes sociales.',
+                    'Reemplaza los extintores físicos por sensores de humedad digitales.',
+                    'Elimina la necesidad de supervisión humana en el mando central.',
+                    'Prioriza el acceso físico con llaves maestras sobre el biométrico.'
+                ],
+                correctIndex: 0,
+                justification: 'El estándar 4.0 busca pasar de descubrir daños "al día siguiente" a respuestas autónomas inmediatas vía Edge Computing. Las demás opciones son interpretaciones erróneas o absurdas del material.'
+            }, {
+                id: 15,
+                text: '¿Por qué la recolección de menos datos (solo volumen espacial) resulta en un sistema más robusto?',
+                options: [
+                    'Simplifica las auditorías al eliminar riesgos legales de identidad.',
+                    'Mejora la precisión de los algoritmos de reconocimiento de rostros.',
+                    'Permite el uso de cámaras de vigilancia de bajo costo en el Z9.',
+                    'Reduce el tiempo necesario para la instalación física de nodos.',
+                    'Aumenta la capacidad de la batería de los sensores ambientales.'
+                ],
+                correctIndex: 0,
+                justification: 'Al no capturar datos de identidad, se cumple con la "Privacidad por Diseño", haciendo el sistema más robusto frente a regulaciones como RGPD. La opción B es contradictoria, y C, D y E no tienen base en el material.'
+            }, {
+                id: 16,
+                text: '¿Cuál es la función del protocolo MQTT con TLS cifrado en el sistema de sensores?',
+                options: [
+                    'Conecta sensores multi-espectrales para el monitoreo ambiental.',
+                    'Transfiere grandes volúmenes de video hacia el servidor local Z9.',
+                    'Gestiona la apertura de puertas perimetrales en caso de incendio.',
+                    'Respalda la base de datos de auditoría en una nube externa segura.',
+                    'Provee conectividad Wi-Fi para los dispositivos personales del personal.'
+                ],
+                correctIndex: 0,
+                justification: 'El material indica que los sensores multi-espectrales usan MQTT con TLS para enviar datos ambientales a la IA predictiva. Las demás opciones no corresponden al uso técnico descrito para MQTT en este contexto.'
+            }, {
+                id: 17,
+                text: 'En el modelo de Soberanía Operativa, ¿qué sucede con los "Datos Circulares Locales"?',
+                options: [
+                    'Permanecen dentro del edificio procesados por el servidor Z9.',
+                    'Se envían a una nube pública para su análisis por terceros países.',
+                    'Se eliminan automáticamente cada hora para liberar espacio físico.',
+                    'Son accesibles por cualquier usuario conectado a la VLAN del taller.',
+                    'Requieren una conexión a internet activa para ser desencriptados.'
+                ],
+                correctIndex: 0,
+                justification: 'El flujo Edge garantiza que los datos no abandonen el recinto, manteniendo la soberanía. Las opciones B y E son lo opuesto a la soberanía, y C y D son operativamente incorrectas.'
+            }, {
+                id: 18,
+                text: '¿Cuál es el primer paso en el flujo de trabajo del Dashboard Digital Twin?',
+                options: [
+                    'Consolidar los múltiples sistemas en una única pantalla visual.',
+                    'Ejecutar protocolos de aislamiento ante cualquier alerta menor.',
+                    'Consultar manualmente el estado de cada sensor en los talleres.',
+                    'Solicitar permiso a la Dirección para visualizar los nodos Z8.',
+                    'Reiniciar el Edge Gateway para limpiar la memoria de incidentes.'
+                ],
+                correctIndex: 0,
+                justification: 'El paso 1 es "Consolidar (Pantalla única)" para evitar la fatiga de alertas. Las demás opciones omiten el proceso jerárquico de diseño del dashboard.'
+            }, {
+                id: 19,
+                text: 'El Centro Neurálgico 4.0 define al recinto directivo como:',
+                options: [
+                    'El ancla que garantiza la resiliencia de todo el ecosistema.',
+                    'El lugar físico donde se deben resguardar los archivos legales.',
+                    'La zona con menor nivel de seguridad por ser de baja prioridad.',
+                    'El nodo encargado de procesar la biometría de todos los talleres.',
+                    'La oficina principal para la atención de proveedores externos.'
+                ],
+                correctIndex: 0,
+                justification: 'El material afirma que el recinto directivo no es un almacén de archivos, sino el ancla de resiliencia. La B es explícitamente negada por el texto, y C, D y E contradicen la jerarquía de seguridad Z9.'
+            }, {
+                id: 20,
+                text: '¿Qué acción realiza el Gateway como paso 02 en el protocolo de aislamiento de emergencia?',
+                options: [
+                    'Segmenta automáticamente la VLAN 20 y desconecta servidores.',
+                    'Notifica al Director mediante un correo electrónico encriptado.',
+                    'Realiza un escaneo biométrico para confirmar la identidad del intruso.',
+                    'Bloquea físicamente las puertas perimetrales del nodo afectado.',
+                    'Analiza la trayectoria del objeto detectado mediante sensores IA.'
+                ],
+                correctIndex: 0,
+                justification: 'Según el cronograma del protocolo (0.5s), el segundo paso es el aislamiento lógico de la VLAN 20. La notificación (B) y el bloqueo físico (D) ocurren después, y la biometría (C) no se realiza en este protocolo.'
+            }];
+
+            // ==================== ESTADO DE LA APLICACIÓN ====================
+            const TOTAL_QUESTIONS = questionsData.length;
+            let shuffledQuestions = [];
+            let userAnswers = {};
+            let currentIndex = 0;
+            let quizFinished = false;
+
+            // ==================== ELEMENTOS DOM ====================
+            const mainContent = document.getElementById('mainContent');
+            const resultsScreen = document.getElementById('resultsScreen');
+            const progressSection = document.getElementById('progressSection');
+            const questionText = document.getElementById('questionText');
+            const optionsList = document.getElementById('optionsList');
+            const justificationBox = document.getElementById('justificationBox');
+            const justLabel = document.getElementById('justLabel');
+            const justText = document.getElementById('justText');
+            const qIndicatorText = document.getElementById('qIndicatorText');
+            const respondidasCount = document.getElementById('respondidasCount');
+            const progressBarFill = document.getElementById('progressBarFill');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const btnFinish = document.getElementById('btnFinish');
+            const btnRestart = document.getElementById('btnRestart');
+            const resultsCircle = document.getElementById('resultsCircle');
+            const resultsPercentage = document.getElementById('resultsPercentage');
+            const resultsSummary = document.getElementById('resultsSummary');
+            const resultsEmoji = document.getElementById('resultsEmoji');
+            const questionIndicator = document.getElementById('questionIndicator');
+
+            // ==================== FUNCIONES DE BARAJE ====================
+            function shuffleArray(arr) {
+                const a = arr.slice();
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
+            }
+
+            function prepareShuffledQuestions() {
+                const shuffled = shuffleArray(questionsData);
+                return shuffled.map(q => {
+                    const originalOptions = q.options.slice();
+                    const originalCorrectIndex = q.correctIndex;
+                    const correctText = originalOptions[originalCorrectIndex];
+                    const indices = originalOptions.map((_, i) => i);
+                    const shuffledIndices = shuffleArray(indices);
+                    const newOptions = shuffledIndices.map(i => originalOptions[i]);
+                    const newCorrectIndex = newOptions.indexOf(correctText);
+                    return {
+                        id: q.id,
+                        text: q.text,
+                        options: newOptions,
+                        correctIndex: newCorrectIndex,
+                        justification: q.justification,
+                        originalId: q.id
+                    };
+                });
+            }
+
+            // ==================== INICIALIZAR / REINICIAR ====================
+            function initializeQuiz() {
+                shuffledQuestions = prepareShuffledQuestions();
+                userAnswers = {};
+                currentIndex = 0;
+                quizFinished = false;
+                resultsScreen.classList.remove('active');
+                mainContent.style.display = 'flex';
+                progressSection.style.display = 'block';
+                updateProgressUI();
+                renderQuestion(currentIndex);
+            }
+
+            // ==================== ACTUALIZAR UI DE PROGRESO ====================
+            function updateProgressUI() {
+                const answeredCount = Object.keys(userAnswers).length;
+                const progressPercent = Math.round((answeredCount / TOTAL_QUESTIONS) * 100);
+                respondidasCount.textContent = answeredCount + ' / ' + TOTAL_QUESTIONS + ' respondidas';
+                progressBarFill.style.width = progressPercent + '%';
+                qIndicatorText.textContent = 'Pregunta ' + (currentIndex + 1) + ' de ' + TOTAL_QUESTIONS;
+            }
+
+            // ==================== RENDERIZAR PREGUNTA ====================
+            function renderQuestion(index) {
+                if (index < 0 || index >= TOTAL_QUESTIONS) return;
+                currentIndex = index;
+                const q = shuffledQuestions[index];
+                const qId = q.id;
+                const answered = userAnswers.hasOwnProperty(qId);
+                const answerData = userAnswers[qId] || null;
+
+                qIndicatorText.textContent = 'Pregunta ' + (index + 1) + ' de ' + TOTAL_QUESTIONS;
+                questionIndicator.style.display = 'inline-flex';
+                questionText.innerHTML = q.text;
+
+                optionsList.innerHTML = '';
+                const letters = ['A', 'B', 'C', 'D', 'E'];
+                q.options.forEach((optText, optIndex) => {
+                    const li = document.createElement('li');
+                    li.className = 'option-item';
+                    li.setAttribute('data-index', optIndex);
+
+                    const letterSpan = document.createElement('span');
+                    letterSpan.className = 'option-letter';
+                    letterSpan.textContent = letters[optIndex];
+
+                    const textSpan = document.createElement('span');
+                    textSpan.className = 'option-text';
+                    textSpan.textContent = optText;
+
+                    const iconSpan = document.createElement('span');
+                    iconSpan.className = 'option-icon';
+
+                    li.appendChild(letterSpan);
+                    li.appendChild(textSpan);
+                    li.appendChild(iconSpan);
+
+                    if (answered) {
+                        li.classList.add('disabled');
+                        if (optIndex === q.correctIndex) {
+                            li.classList.add('correct');
+                        }
+                        if (optIndex === answerData.selectedIndex && optIndex !== q.correctIndex) {
+                            li.classList.add('incorrect');
+                        }
+                        if (!answerData.isCorrect && optIndex === q.correctIndex) {
+                            li.classList.add('reveal-correct');
+                            if (optIndex === answerData.selectedIndex) {
+                                li.classList.remove('reveal-correct');
+                                li.classList.add('incorrect');
+                            }
+                        }
+                    } else {
+                        li.addEventListener('click', function() {
+                            handleOptionSelect(q, optIndex);
+                        });
+                    }
+
+                    optionsList.appendChild(li);
+                });
+
+                if (answered) {
+                    justificationBox.classList.add('visible');
+                    if (answerData.isCorrect) {
+                        justificationBox.classList.add('correct-just');
+                        justificationBox.classList.remove('incorrect-just');
+                        justLabel.textContent = '✅ Correcto – Justificación técnica';
+                    } else {
+                        justificationBox.classList.remove('correct-just');
+                        justificationBox.classList.add('incorrect-just');
+                        justLabel.textContent = '❌ Incorrecto – Justificación técnica';
+                    }
+                    justText.textContent = q.justification;
+                } else {
+                    justificationBox.classList.remove('visible', 'correct-just', 'incorrect-just');
+                    justLabel.textContent = 'Justificación técnica';
+                    justText.textContent = '';
+                }
+
+                btnPrev.disabled = (currentIndex === 0);
+                if (currentIndex === TOTAL_QUESTIONS - 1) {
+                    btnNext.textContent = 'Finalizar →';
+                    btnNext.classList.add('btn-finish');
+                } else {
+                    btnNext.textContent = 'Siguiente →';
+                    btnNext.classList.remove('btn-finish');
+                }
+
+                updateProgressUI();
+                document.getElementById('appContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // ==================== MANEJAR SELECCIÓN DE OPCIÓN ====================
+            function handleOptionSelect(questionObj, selectedIndex) {
+                const qId = questionObj.id;
+                if (userAnswers.hasOwnProperty(qId)) return;
+
+                const isCorrect = (selectedIndex === questionObj.correctIndex);
+                userAnswers[qId] = {
+                    selectedIndex: selectedIndex,
+                    isCorrect: isCorrect
+                };
+
+                renderQuestion(currentIndex);
+            }
+
+            // ==================== NAVEGACIÓN ====================
+            function goToNext() {
+                if (currentIndex < TOTAL_QUESTIONS - 1) {
+                    renderQuestion(currentIndex + 1);
+                } else {
+                    finishQuiz();
+                }
+            }
+
+            function goToPrev() {
+                if (currentIndex > 0) {
+                    renderQuestion(currentIndex - 1);
+                }
+            }
+
+            // ==================== FINALIZAR CUESTIONARIO ====================
+            function finishQuiz() {
+                quizFinished = true;
+                const answeredCount = Object.keys(userAnswers).length;
+                const correctCount = Object.values(userAnswers).filter(a => a.isCorrect).length;
+                const percentage = answeredCount > 0 ? Math.round((correctCount / TOTAL_QUESTIONS) * 100) : 0;
+
+                mainContent.style.display = 'none';
+                progressSection.style.display = 'none';
+                resultsScreen.classList.add('active');
+
+                resultsCircle.style.setProperty('--pct', percentage * 3.6 + 'deg');
+                resultsCircle.classList.remove('excellent', 'good', 'fair', 'poor');
+                if (percentage >= 90) resultsCircle.classList.add('excellent');
+                else if (percentage >= 70) resultsCircle.classList.add('good');
+                else if (percentage >= 50) resultsCircle.classList.add('fair');
+                else resultsCircle.classList.add('poor');
+
+                resultsPercentage.textContent = percentage;
+
+                let emoji, mensaje;
+                if (percentage >= 90) {
+                    emoji = '🏆';
+                    mensaje = '¡Excelente! Dominas la Arquitectura de Seguridad Institucional 4.0.';
+                } else if (percentage >= 70) {
+                    emoji = '👍';
+                    mensaje = 'Muy buen trabajo. Tienes una base sólida en Zero Trust y Edge Gateway.';
+                } else if (percentage >= 50) {
+                    emoji = '📚';
+                    mensaje = 'Vas por buen camino. Repasa las justificaciones para afianzar los protocolos.';
+                } else {
+                    emoji = '💪';
+                    mensaje = 'Sigue practicando. Cada error es una oportunidad para fortalecer la arquitectura.';
+                }
+                resultsEmoji.textContent = emoji;
+                resultsSummary.innerHTML =
+                    '<strong>' + correctCount + ' aciertos</strong> de ' + TOTAL_QUESTIONS +
+                    ' preguntas.<br>Has respondido <strong>' + answeredCount + '</strong> de ' + TOTAL_QUESTIONS +
+                    '.<br>' + mensaje;
+
+                resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // ==================== EVENT LISTENERS ====================
+            btnNext.addEventListener('click', goToNext);
+            btnPrev.addEventListener('click', goToPrev);
+            btnFinish.addEventListener('click', function() {
+                if (Object.keys(userAnswers).length === 0) {
+                    if (confirm(
+                            'No has respondido ninguna pregunta aún. ¿Quieres finalizar la práctica de todos modos? Verás un 0%.'
+                            )) {
+                        finishQuiz();
+                    }
+                } else {
+                    finishQuiz();
+                }
+            });
+            btnRestart.addEventListener('click', function() {
+                initializeQuiz();
+                document.getElementById('appContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (quizFinished) return;
+                if (e.key === 'ArrowRight' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    goToNext();
+                }
+                if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    goToPrev();
+                }
+                if (!quizFinished && currentIndex >= 0 && currentIndex < TOTAL_QUESTIONS) {
+                    const q = shuffledQuestions[currentIndex];
+                    if (!userAnswers.hasOwnProperty(q.id)) {
+                        const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4 };
+                        const pressed = e.key.toLowerCase();
+                        if (keyMap.hasOwnProperty(pressed) && keyMap[pressed] < q.options.length) {
+                            e.preventDefault();
+                            handleOptionSelect(q, keyMap[pressed]);
+                        }
+                    }
+                }
+            });
+
+            // ==================== INICIAR ====================
+            initializeQuiz();
+        })();
+    </script>
+</body>
+</html>
